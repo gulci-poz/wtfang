@@ -18,20 +18,14 @@
 
             <div ng-controller="mainController as mv">
 
-                <div>
-                    <label>What is your twitter handle?</label>
-                    <input type="text" ng-model="handle" />
-                </div>
-
-                <hr />
-
-                <h1>twitter.com/{{ handle }}</h1>
+                <h1>Hello {{ name + "!" }}</h1>
+                <h2 ng-model="mv.occupation">Occupation: {{ mv.occupation }}</h2>
 
             </div>
 
         </div>
 
-        <script src="app.js">
+        <script src="app8.js">
         </script>
     </body>
 </html>
