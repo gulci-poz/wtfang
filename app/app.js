@@ -1,24 +1,41 @@
 var myApp = angular.module("myApp", []);
 
-// dyrektywy - instrukcja dla angulara, żeby dokonał manipulacji kawałka DOM, np. dodanie klasy, ukrycie elementu, utworzenie czegoś
-// oznajmiamy, kierujemy (to direct), że coś ma się zmienić w DOM
-
-myApp.controller("mainController", ["$scope", function ($scope) {
-
-    // ng-model - binding konkretnej zmiennej ze $scope z elementem widoku (DOM), bez pisania $scope
-    // w polach input zmienną ze $scope uzyskamy za pośrednictwem ng-model, w nieedytowalnych polach wystarczy binding {{}}, bez użycia ng-model
-
-    // jeśli mamy zmienną na kontrolerze (a nie w $scope), to we wszystkich polach trzeba użyć ng-model i "zaliasowanego" kontrolera
-
-    // widok jest wiązany z modelem za pomocą dyrektywy
-    // dyrektywa ~ event listener (gulci's aside)
-    // obecność ng-model (i {{}} również) sprawia, że coś wyrzuci zdarzenie i bindingi będą nasłuchiwać tego zdarzenia (np. zmiana zawartości zmiennej)
-
-    // two-way binding między widokiem i modelem (za pomocą ng-model)
-    // interpolacja {{}} to też binding (ale nie two-way)
+myApp.controller("mainController", ["$scope", "$filter", function ($scope, $filter) {
 
     $scope.handle = "";
 
+    $scope.lowercaseHandle = function () {
+        return $filter("lowercase")($scope.handle);
+    }
+
+    // dodajemy własny watch-code dla konkretnej zmiennej
+    // normalnie tego nie robimy
+    // oczywiście działamy w Angular Context
+
+    $scope.$watch("handle", function (newValue, oldValue) {
+
+        console.info("handle changed");
+        console.log("old value: " + oldValue);
+        console.log("new value: " + newValue);
+
+    });
+
+    // setTimeout działa w JS asynchronicznie (nowy wątek)
+    // nie zadziała w Angular Context
+    // można użyć $scope.$apply
+    // z jQuery też trzeba to robić
+
+    setTimeout(function () {
+
+        // dodajemy kod do Angular Context
+        // angular w większości kodu opakowuje nasz kod w $apply
+        $scope.$apply(function () {
+            $scope.handle = "newTwitterHandle"
+            console.log("$scope changed");
+        });
+
+    }, 3000);
+
 }]);
 
-// 7min
+// 14:30, $timeout (Watchers and Digest Loop)
