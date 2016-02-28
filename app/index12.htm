@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+    <head>
+        <title>wtfang</title>
+
+        <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css" />
+
+        <script src="../lib/jquery-2.2.1.min.js">
+        </script>
+
+        <script src="../lib/angular.min.js">
+        </script>
+    </head>
+
+    <body>
+
+        <div class="container">
+
+            <div ng-controller="mainController as mv">
+
+                <div>
+                    <label>What is your twitter handle?</label>
+                    <input type="text" ng-model="handle" />
+                </div>
+
+                <hr />
+
+                <h1>twitter.com/{{ lowercaseHandle() }}</h1>
+
+            </div>
+
+        </div>
+
+        <script src="app12.js">
+        </script>
+    </body>
+</html>

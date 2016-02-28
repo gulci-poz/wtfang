@@ -3,7 +3,7 @@
 // musimy pamiętać o tagu script dla każdego modułu
 
 // custom attributes w angular to dyrektywy
-// ng-model "mapuje" zmienną z kontrolera
+// ng-model dodaje zmienną do listy Watchers (app11.js)
 
 // angular-messages oferuje np. walidację formularzy
 

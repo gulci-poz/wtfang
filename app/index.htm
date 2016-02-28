@@ -23,6 +23,36 @@
                     <input type="text" ng-model="handle" />
                 </div>
 
+                <div class="alert" ng-class='{ "alert-info": handle.length < characters, "alert-warning": handle.length > characters, "alert-success": handle.length === characters }'>
+
+                    <div ng-show="handle.length < characters">
+                        Less than 5 characters!
+                    </div>
+
+                    <div ng-show="handle.length === characters">
+                        Exactly 5 characters!
+                    </div>
+
+                    <div ng-show="handle.length > characters">
+                        More than 5 characters!
+                    </div>
+
+                </div>
+
+                <!--
+                <div class="alert alert-warning" ng-if="handle.length > characters">
+                    Must be maximum 5 characters!
+                </div>
+
+                <div class="alert alert-success" ng-show="handle.length === characters">
+                    Your handle is exactly 5 characters!
+                </div>
+
+                <div class="alert alert-warning" ng-hide="handle.length === characters">
+                    Must be exactly 5 characters!
+                </div>
+                -->
+
                 <hr />
 
                 <h1>twitter.com/{{ lowercaseHandle() }}</h1>
