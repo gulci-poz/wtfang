@@ -28,7 +28,7 @@ myApp.controller("mainController", ["$scope", "$filter", "$http", function ($sco
 
     rulesRequest.onreadystatechange = function () {
         // mamy żądanie, którego realizacja się skończyła
-        // mam api w node, w którym definiuję tablicę (można tam również uzyskać ją z mongodb) i zwracam string JSON
+        // mam api w node, w którym zwracam string JSON z obiektu tablicy
 
         if (rulesRequest.readyState == 4 && rulesRequest.status == 200) {
             // potrzebujemy kontekstu angulara do korzystania z serwisu $scope; $apply musimy dać wewnątrz warunku if, inaczej kod się wykona, ale angular będzie narzekał (error), że jeden $apply już się wykonuje

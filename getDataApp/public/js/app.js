@@ -15,7 +15,7 @@ myApp.controller("mainController", ["$scope", "$filter", "$http", function ($sco
     // bez zmian w index.ejs
 
     // API mamy pod tym samym adresem co aplikacja, nie potrzebujemy pełnej ścieżki
-    $http.get("/api/rules")
+    $http.get("/api/showRules")
         .success(function (result) {
             $scope.rules = result;
         })
@@ -27,14 +27,10 @@ myApp.controller("mainController", ["$scope", "$filter", "$http", function ($sco
     $scope.newRule = "";
 
     $scope.addRule = function () {
-        //
-        // todo - muszę dodać post w node
-        // API zwraca uzupełnioną tablicę
-        //
-
         // wysyłamy obiekt JS (nie string JSON)
         $http.post("/api/addRule", { newRule: $scope.newRule })
             .success(function (result) {
+                // API zwraca uzupełnioną tablicę
                 $scope.rules = result;
                 $scope.newRule = "";
             })
