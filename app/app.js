@@ -14,7 +14,7 @@ myApp.controller("mainController", ["$scope", "$filter", function ($scope, $filt
 
     // ng-show i ng-hide - podobnie jak wyżej, określamy warunek ukrycia lub pokazania; element DOM pozostaje na stronie, dodawana jest klasa ng-hide, do której aplikuje styl CSS pokazujący/ukrywający element DOM
 
-    // ng-class - dodanie klasy do elementu DOM w zależności od spełnienia warunku, jest to kod JS, podajemy w nim obiekt JSON (nie JS), zawierający pary nazwa klasy - warunek (warunek bez jakichkolwiek cudzysłowów); możemy tutaj zagnieździć divy z ng-show, żeby pokazywać komunikat odpowiedni do klasy (koloru) aleru
+    // ng-class - dodanie klasy do elementu DOM w zależności od spełnienia warunku, jest to kod JS, podajemy w nim obiekt JSON (nie JS), zawierający pary nazwa klasy - warunek (warunek bez jakichkolwiek cudzysłowów, tylko jedno wyrażenie); możemy tutaj zagnieździć divy z ng-show, żeby pokazywać komunikat odpowiedni do klasy (koloru) aleru
 
     // przy interpolacji lub ng-bind angular dodaje klasę ng-binding
 
@@ -25,6 +25,12 @@ myApp.controller("mainController", ["$scope", "$filter", function ($scope, $filt
     // klasy angulara, możemy zdefiniować dla nich style
     // https://code.angularjs.org/1.5.0/docs/guide/css-styling
 
+    // ng-repeat
+
+    // ng-click - też inne metody związane z kliknięciem
+
+    // ng-cloak - ukrywanie interpolacji przy wyświetlaniu załadowanej strony
+
     $scope.rules = [
 
         { rulename: "Must be 5 characters" },
@@ -33,6 +39,10 @@ myApp.controller("mainController", ["$scope", "$filter", function ($scope, $filt
 
     ];
 
-}]);
+    $scope.uploadClick = function () {
+        console.log("Upload your handle");
+    };
 
-// 14:50
+    $scope.name = "gulci";
+
+}]);

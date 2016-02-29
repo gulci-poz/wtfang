@@ -3,12 +3,9 @@
     <head>
         <title>wtfang</title>
 
-        <link rel="stylesheet" type="text/css" href="../lib/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
 
-        <script src="../lib/jquery-2.2.1.min.js">
-        </script>
-
-        <script src="../lib/angular.min.js">
+        <script src="assets/js/angular.min.js">
         </script>
     </head>
 
@@ -46,23 +43,9 @@
                     </li>
                 </ul>
 
-                <input type="button" value="Upload" ng-click="uploadClick()" />
+                <hr />
 
-                <div ng-cloak>{{ name }}</div>
-
-                <!--
-                <div class="alert alert-warning" ng-if="handle.length > characters">
-                    Must be maximum 5 characters!
-                </div>
-
-                <div class="alert alert-success" ng-show="handle.length === characters">
-                    Your handle is exactly 5 characters!
-                </div>
-
-                <div class="alert alert-warning" ng-hide="handle.length === characters">
-                    Must be exactly 5 characters!
-                </div>
-                -->
+                Add rule: <input type="text" ng-model="newRule" /><a href="#" class="btn btn-default" ng-click="addRule()">Add</a>
 
                 <hr />
 
@@ -72,7 +55,7 @@
 
         </div>
 
-        <script src="app.js">
+        <script src="assets/js/app.js">
         </script>
     </body>
 </html>
