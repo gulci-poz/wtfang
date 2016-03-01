@@ -10,7 +10,17 @@ myApp.config(function ($routeProvider) {
             controller: "mainController"
         })
 
+        // możemy skorzystać z tego samego szablonu i kontrolera co przy dopasowaniu wzorca
+        
         .when("/second", {
+            templateUrl: "pages/second.html",
+            controller: "secondController"
+        })
+
+        // mamy dopasowanie wzorca
+        // samo /second nie będzie już pasowało
+
+        .when("/second/:num", {
             templateUrl: "pages/second.html",
             controller: "secondController"
         });
@@ -27,10 +37,13 @@ myApp.controller("mainController", ["$scope", "$log", function ($scope, $log) {
 
 }]);
 
-myApp.controller("secondController", ["$scope", "$log",
-    function ($scope, $log) {
+myApp.controller("secondController", ["$scope", "$log", "$routeParams",
+    function ($scope, $log, $routeParams) {
 
         $scope.name = "Second";
+
+        // lub domyślna wartości dla url /second
+        $scope.num = $routeParams.num || 1;
 
     }
 ]);

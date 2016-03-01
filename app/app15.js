@@ -13,5 +13,6 @@ window.addEventListener("hashchange", function () {
 
     // nie potrzebujemy żadnych elementów <a></a>
     // z punktu widzenia JS - widzimy hash i możemy go używać do routingu
-    // SPA - jedno żądanie HTTP, jedna strona; asynchroniczne żądania AJAX i routing z hashami; webAPI - po stronie serwera
+    // SPA - jedno żądanie HTTP, jedna strona; asynchroniczne żądania AJAX i routing z hashami, do tego Digest Loop i nasłuchiwanie zmian; uzupełnienie po stronie serwera - Web API
+    // w SPA ściągamy dane, a nie za każdym razem cały HTML; nie ma mrugania
 });
