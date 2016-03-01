@@ -1,48 +1,48 @@
-var myApp = angular.module("myApp", []);
+var myApp = angular.module("myApp", ["ngRoute"]);
 
-myApp.controller("mainController", ["$scope", "$filter", function ($scope, $filter) {
+// wstrzykujemy $routeProvider do konfiguracji aplikacji
+myApp.config(function ($routeProvider) {
 
-    $scope.handle = "";
+    $routeProvider
 
-    $scope.lowercaseHandle = function () {
-        return $filter("lowercase")($scope.handle);
-    }
+        .when("/", {
+            templateUrl: "pages/main.html",
+            controller: "mainController"
+        })
 
-    $scope.characters = 5;
+        .when("/second", {
+            templateUrl: "pages/second.html",
+            controller: "secondController"
+        });
 
-    // ng-if - dodaje/usuwa kawałek DOM, na którym leży, w zależności od spełnienia warunku wyrażonego w JS (pozostaje komentarz w kodzie HTML)
+    // zamiast ng-controller dla każdego diva w html korzystamy z jednego diva z ng-view, w ten sposób ładujemy templates
+    // do diva zostanie dodany kod html z szablonu (będzie wewnątrz diva z ng-view)
+    // ciekawostka: możemy korzystać z szablonów w node (np. ejs) i podać ten wygenerowany kawałek kodu html jako szablon w angular, tu korzystamy z kolei z bindings i interpolacji
 
-    // ng-show i ng-hide - podobnie jak wyżej, określamy warunek ukrycia lub pokazania; element DOM pozostaje na stronie, dodawana jest klasa ng-hide, do której aplikuje styl CSS pokazujący/ukrywający element DOM
+});
 
-    // ng-class - dodanie klasy do elementu DOM w zależności od spełnienia warunku, jest to kod JS, podajemy w nim obiekt JSON (nie JS), zawierający pary nazwa klasy - warunek (warunek bez jakichkolwiek cudzysłowów, tylko jedno wyrażenie); możemy tutaj zagnieździć divy z ng-show, żeby pokazywać komunikat odpowiedni do klasy (koloru) aleru
+myApp.controller("mainController", ["$scope", "$log", function ($scope, $log) {
 
-    // przy interpolacji lub ng-bind angular dodaje klasę ng-binding
-
-    // przy ng-model na input angular dodaje różne klasy, które się zmieniają w zależności od zawartości wejścia
-
-    // ng-scope pojawia się na nadrzędnym elemencie, który jest związany z kontrolerem; dokumentacja mówi (1.5.0), że ma się pokazać na każdym elemencie, gdzie jest dołączony #scope; w innym miejscu piszą, że pojawia się na elementach, na których jest zdefiniowany nowy $scope
-
-    // klasy angulara, możemy zdefiniować dla nich style
-    // https://code.angularjs.org/1.5.0/docs/guide/css-styling
-
-    // ng-repeat
-
-    // ng-click - też inne metody związane z kliknięciem
-
-    // ng-cloak - ukrywanie interpolacji przy wyświetlaniu załadowanej strony
-
-    $scope.rules = [
-
-        { rulename: "Must be 5 characters" },
-        { rulename: "Must not be used elsewhere" },
-        { rulename: "Must be cool" }
-
-    ];
-
-    $scope.uploadClick = function () {
-        console.log("Upload your handle");
-    };
-
-    $scope.name = "gulci";
+    $scope.name = "Main";
 
 }]);
+
+myApp.controller("secondController", ["$scope", "$log",
+    function ($scope, $log) {
+
+        $scope.name = "Second";
+
+    }
+]);
+
+
+/*
+myApp.controller("mainController", ["$scope", "$location", "$log", function ($scope, $location, $log) {
+
+    // zawartość hasha
+    //$log.info($location.path());
+
+    // mamy wrapper w postaci angular-route
+
+}]);
+*/
