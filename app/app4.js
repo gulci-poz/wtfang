@@ -4,6 +4,9 @@ myApp.controller("mainController", function ($scope) {
 
     // angular rozpozna $scope w argumentach, utworzy go i przekaże obiekt do funkcji kontrolera
     // inne services mogą być przekazane jako argumenty do kontrolera
+
+    // mamy tutaj child $scope, który jest tworzony dla każdego kontrolera, dziedziczy on z root $scope; inne serwisy są singletonami
+
     console.log($scope);
 
 });

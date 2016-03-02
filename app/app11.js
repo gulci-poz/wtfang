@@ -16,3 +16,5 @@ myApp.controller("mainController", ["$scope", function ($scope) {
 
 // gulci's aside
 // praktyczna różnica między deklarowaniem zmiennych i funkcji w $scope, a robieniem tego bezpośrednio w kontrolerze
+
+// korzystając z serwisów dostajemy metodę przekazywania danych między kontrolerami (a zarazem szablonami), chociaż w przypadku $scope mamy do czynienia z osobnymi instancjami (child), które dziedziczą z root
