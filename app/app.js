@@ -1,4 +1,4 @@
-// angular realizuje ideę Reusable Component (lub Web Component) za pomocą atrybutów elementów html - dyrektyw
+// angular realizuje ideę Reusable Component (lub Web Component) za pomocą dyrektyw (wyświetlanie za pomocą ACEM)
 // angular normalizuje nazwy atrybutów z myślnikami do camel case, normalizacja działa również w drugą stronę
 // np. mamy dyrektywę ng-messages i moduł ngMessages
 
@@ -35,15 +35,20 @@ myApp.controller("secondController", ["$scope", "$log",
     }
 ]);
 
-// mamy normalizację w obie strony
+// dyrektywy można definiować w osobnych plikach (również kontrolery, routes i serwisy)
 myApp.directive("searchResult", function () {
 
-    // zwracamy obiekt JS - dyrektywę
-    // domyślnie custom directives to tagi HTML, nie atrybuty
-    // replace: true - wstawia kod bezpośrednio, bez nadrzędnego elementu search-result; w html nadal wstawiamy za pomocą tagu search-result
+    // zwracamy obiekt dyrektywy - jest to obiekt JS
+    // replace: true - wstawia kod dyrektywy bez nadrzędnego elementu HTML; domyślnie false
+    // restrict - wyświetlanie z użyciem atrybutu, klasy, elementu lub komentarza: A, C, E, M; poszczególne dyrektywy w HTML będą ignorowane, jeśli nie będzie ich na liście; domyślnie AE
+    // w przypadku komentarza i replace: false dyrektywa nie będzie wyświetlona
     return {
+        restrict: "ACEM",
+        // zamiast template używamy templateUrl (HTML w osobnych plikach)
+        /*
         template: '<a href="#" class="list-group-item"><h4 class="list-group-item-heading">Doe, John</h4><p class="list-group-item-text">555 Main St., New York, NY 11111</p></a>',
+        */
+        templateUrl: "directives/searchresult.html",
         replace: true
     };
 });
-// 11:10
