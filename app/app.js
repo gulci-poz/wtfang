@@ -1,7 +1,3 @@
-// angular realizuje ideę Reusable Component (lub Web Component) za pomocą dyrektyw (wyświetlanie za pomocą ACEM)
-// angular normalizuje nazwy atrybutów z myślnikami do camel case, normalizacja działa również w drugą stronę
-// np. mamy dyrektywę ng-messages i moduł ngMessages
-
 var myApp = angular.module("myApp", ["ngRoute"]);
 
 myApp.config(function ($routeProvider) {
@@ -9,12 +5,12 @@ myApp.config(function ($routeProvider) {
     $routeProvider
 
         .when("/", {
-            templateUrl: "pages/main3.html",
+            templateUrl: "pages/main4.html",
             controller: "mainController"
         })
 
         .when("/second", {
-            templateUrl: "pages/second3.html",
+            templateUrl: "pages/second4.html",
             controller: "secondController"
         });
 
@@ -23,7 +19,17 @@ myApp.config(function ($routeProvider) {
 myApp.controller("mainController", ["$scope", "$log",
     function ($scope, $log) {
 
+        $scope.person = {
+            name: "John Doe",
+            address: "555 Main St.",
+            city: "New York",
+            state: "NY",
+            zip: "11111"
+        };
 
+        $scope.formattedAddress = function (person) {
+            return person.address + ", " + person.city + ", " + person.state + " " + person.zip;
+        }
 
 }]);
 
@@ -35,20 +41,19 @@ myApp.controller("secondController", ["$scope", "$log",
     }
 ]);
 
-// dyrektywy można definiować w osobnych plikach (również kontrolery, routes i serwisy)
-myApp.directive("searchResult", function () {
+myApp.directive("searchResultFun", function () {
 
-    // zwracamy obiekt dyrektywy - jest to obiekt JS
-    // replace: true - wstawia kod dyrektywy bez nadrzędnego elementu HTML; domyślnie false
-    // restrict - wyświetlanie z użyciem atrybutu, klasy, elementu lub komentarza: A, C, E, M; poszczególne dyrektywy w HTML będą ignorowane, jeśli nie będzie ich na liście; domyślnie AE
-    // w przypadku komentarza i replace: false dyrektywa nie będzie wyświetlona
     return {
         restrict: "ACEM",
-        // zamiast template używamy templateUrl (HTML w osobnych plikach)
-        /*
-        template: '<a href="#" class="list-group-item"><h4 class="list-group-item-heading">Doe, John</h4><p class="list-group-item-text">555 Main St., New York, NY 11111</p></a>',
-        */
-        templateUrl: "directives/searchresult.html",
-        replace: true
+        templateUrl: "directives/searchresultfun.html",
+        replace: true,
+        scope: {
+            personObject: "=",
+
+            // dodajemy funkcję ze scope kontrolera - &
+            // w searchresult2 przekazujemy mapping object
+            // funkcja może dokonywać zmian na scope kontrolera, oznacza to, że z poziomu dyrektywy możemy zmienić nie wprost zawartość modelu kontrolera
+            formattedAddressFunction: "&"
+        }
     };
 });
