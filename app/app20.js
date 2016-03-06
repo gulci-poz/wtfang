@@ -5,12 +5,12 @@ myApp.config(function ($routeProvider) {
     $routeProvider
 
         .when("/", {
-            templateUrl: "pages/main5.html",
+            templateUrl: "pages/main4.html",
             controller: "mainController"
         })
 
         .when("/second", {
-            templateUrl: "pages/second5.html",
+            templateUrl: "pages/second4.html",
             controller: "secondController"
         });
 
@@ -66,23 +66,27 @@ myApp.controller("secondController", ["$scope", "$log",
     }
 ]);
 
-// transclusion - umieszczenie jednego dokumentu w drugim
-// ng-transclude w searchresulttrans
-
 myApp.directive("searchResultFun", function () {
 
     return {
         restrict: "ACEM",
-        templateUrl: "directives/searchresulttrans.html",
+        templateUrl: "directives/searchresultfun.html",
         replace: true,
         scope: {
             personObject: "=",
             formattedAddressFunction: "&"
         },
-        // transclusion - umieszczenie jednego dokumentu w drugim
-        // dodajemy zawartość, której nie ma normalnie w dyrektywie wewnątrz search-result w main5
-        // dodajemy ng-transclude w searchresulttrans, tam będzie dodatkowa zawartość z main5 (można też użyć atrybutu ng-transclude)
-        // tutaj dajemy transclude: true
-        transclude: true
+        // skrótowa forma post-linking, bez compile (mamy pusty compile) i pre-linking
+        link: function (scope, elements, attrs) {
+            console.log("Linking...");
+
+            // elements to tak naprawdę element jQuery
+            // używamy funkcji jQuery
+            // angular oferuje jqLite
+            if (scope.personObject.name === "Jane Doe") {
+                elements.addClass("btn");
+                elements.addClass("active");
+            }
+        }
     }
 });

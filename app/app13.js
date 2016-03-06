@@ -20,7 +20,8 @@ myApp.controller("mainController", ["$scope", "$filter", function ($scope, $filt
 
     // przy ng-model na input angular dodaje różne klasy, które się zmieniają w zależności od zawartości wejścia
 
-    // ng-scope pojawia się na nadrzędnym elemencie, który jest związany z kontrolerem; dokumentacja mówi (1.5.0), że ma się pokazać na każdym elemencie, gdzie jest dołączony #scope; w innym miejscu piszą, że pojawia się na elementach, na których jest zdefiniowany nowy $scope
+    // ng-scope - pojawia się na każdym elemencie, który ma zdefiniowany swój $scope
+    // niektóre elementy angular definiują swój $scope (jest to child $scope); przy odczycie $scope na danym elemencie odbywa się szukanie odpowiedniego $scope po drzewie dziedziczenia, w razie braku $scope jest on sprawdzany w górę hierarchii elementów aż do root $scope
 
     // klasy angulara, możemy zdefiniować dla nich style
     // https://code.angularjs.org/1.5.0/docs/guide/css-styling
