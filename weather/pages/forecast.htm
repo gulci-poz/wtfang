@@ -1,0 +1,21 @@
+<p>
+    <a href="#/">Back to Search</a>
+</p>
+<h3>Prognoza dla: {{ city }}</h3>
+<hr />
+Ilość dni: <a href="#/forecast/2" ng-class="{ 'bg-info': days === '2' }">2</a> | <a href="#/forecast/5" ng-class="{ 'bg-info': days === '5' }">5</a> | <a href="#/forecast/7" ng-class="{ 'bg-info': days === '7' }">7</a>
+<hr />
+<div ng-repeat="w in weatherResult.list">
+    <div class="row">
+        <div class="com-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ showDayPL(w.dt) }}, {{ convertToDate(w.dt) | date : "dd.MM.yyyy" : "+0100" }}</h3>
+                </div>
+                <div class="panel-body">
+                    Temperatura dzienna: {{ roundTemp(w.temp.day) }}&#8451; / {{ roundTemp(convertToFahrenheit(w.temp.day)) }}&#8457;
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
