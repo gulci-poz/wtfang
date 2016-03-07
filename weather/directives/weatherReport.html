@@ -1,0 +1,8 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ showDayPl({ dt: weatherDay.dt }) }}, {{ convertToDate({ dt: weatherDay.dt }) | date : dateFormat }}</h3>
+    </div>
+    <div class="panel-body">
+        Temperatura dzienna: {{ roundTemp({ temp: weatherDay.temp.day }) }}&#8451; / {{ roundTemp({ temp: convertToFahrenheit({ degC: weatherDay.temp.day })}) }}&#8457;
+    </div>
+</div>
