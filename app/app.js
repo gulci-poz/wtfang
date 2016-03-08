@@ -1,88 +1,32 @@
-var myApp = angular.module("myApp", ["ngRoute"]);
+var myApp = angular.module('myApp', []);
 
-myApp.config(function ($routeProvider) {
+// factories
 
-    $routeProvider
+myApp.factory("items", function() {
+    var items = [];
+    var itemsService = {};
 
-        .when("/", {
-            templateUrl: "pages/main5.html",
-            controller: "mainController"
-        })
+    itemsService.add = function(item) {
+        items.push(item);
+    };
 
-        .when("/second", {
-            templateUrl: "pages/second5.html",
-            controller: "secondController"
-        });
+    itemsService.list = function() {
+        return items;
+    };
 
+    return itemsService;
 });
 
-myApp.controller("mainController", ["$scope", "$log",
-    function ($scope, $log) {
-
-        $scope.person = {
-            name: "John Doe",
-            address: "555 Main St.",
-            city: "New York",
-            state: "NY",
-            zip: "11111"
-        };
-
-        // na potrzeby repeated directive
-        $scope.people = [
-            {
-                name: "John Doe",
-                address: "555 Main St.",
-                city: "New York",
-                state: "NY",
-                zip: "11111"
-            },
-            {
-                name: "Jane Doe",
-                address: "333 Second St.",
-                city: "Buffalo",
-                state: "NY",
-                zip: "22222"
-            },
-            {
-                name: "George Doe",
-                address: "111 Third St.",
-                city: "Miami",
-                state: "FL",
-                zip: "33333"
-            }
-        ];
-
-        $scope.formattedAddress = function (person) {
-            return person.address + ", " + person.city + ", " + person.state + " " + person.zip;
-        }
-
+// fabrykę możemy wstrzykiwać
+myApp.controller("ctrl1", ["$scope", "items", function ($scope, items) {
+    items.add("element1");
+    items.add("element2");
 }]);
 
-myApp.controller("secondController", ["$scope", "$log",
-    function ($scope, $log) {
+// fabryka, podobnie jak serwis, jest dostępna na wszystkich kontrolerach
+myApp.controller("ctrl2", ["$scope", "items", function ($scope, items) {
+    $scope.list = items.list();
+}]);
 
 
-
-    }
-]);
-
-// transclusion - umieszczenie jednego dokumentu w drugim
-// ng-transclude w searchresulttrans
-
-myApp.directive("searchResultFun", function () {
-
-    return {
-        restrict: "ACEM",
-        templateUrl: "directives/searchresulttrans.html",
-        replace: true,
-        scope: {
-            personObject: "=",
-            formattedAddressFunction: "&"
-        },
-        // transclusion - umieszczenie jednego dokumentu w drugim
-        // dodajemy zawartość, której nie ma normalnie w dyrektywie wewnątrz search-result w main5
-        // dodajemy ng-transclude w searchresulttrans, tam będzie dodatkowa zawartość z main5 (można też użyć atrybutu ng-transclude)
-        // tutaj dajemy transclude: true
-        transclude: true
-    }
-});
+// -> providers (config, $routeProvider, when)

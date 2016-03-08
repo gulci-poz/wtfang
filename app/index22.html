@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+    <head>
+        <title>wtfang</title>
+
+        <script src="../lib/angular.min.js"></script>
+    </head>
+
+    <body>
+
+        <div class="container">
+
+            <div ng-controller="parent1Controller">
+
+                {{ parent1vm.message }}
+
+                <div ng-controller="child1Controller">
+
+                    <!-- {{ $parent.message }} -->
+                    {{ parent1vm.message }}
+                    <br />
+
+                    {{ child1vm.message }}
+
+                </div>
+
+            </div>
+
+            <hr />
+
+            <div ng-controller="parent2Controller as parent2vm">
+
+                {{ parent2vm.message }}
+
+                <div ng-controller="child2Controller as child2vm">
+
+                    {{ parent2vm.message }}
+                    <br />
+                    {{ child2vm.message }}
+                    <br />
+                    <!-- mamy two-way binding, musimy użyć ng-model -->
+                    <input type="text" ng-model="parent2vm.message" />
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <script src="app22.js"></script>
+    </body>
+</html>

@@ -3,8 +3,7 @@
 
 // w razie potrzeby każdy route, serwis, kontroler lub dyrektywa mogą być w osobnym pliku
 
-weatherApp.controller("homeController", ["$scope", "cityService",
-    function ($scope, cityService) {
+weatherApp.controller("homeController", ["$scope", "$location", "cityService", function ($scope, $location, cityService) {
 
         $scope.city = cityService.city;
 
@@ -12,46 +11,21 @@ weatherApp.controller("homeController", ["$scope", "cityService",
             cityService.city = $scope.city;
         });
 
+        // funkcja to obsługi formularza, dodana w ng-submit
+        $scope.submit = function () {
+            $location.path("/forecast");
+        };
+
     }
 ]);
 
-weatherApp.controller("forecastController", ["$scope", "$resource", "$routeParams", "cityService", function ($scope, $resource, $routeParams, cityService) {
+weatherApp.controller("forecastController", ["$scope", "$routeParams", "cityService", "weatherService", function ($scope, $routeParams, cityService, weatherService) {
 
         $scope.city = cityService.city;
 
         $scope.days = $routeParams.days || "2";
 
-        // $resource to wrapper na $http
-
-        $scope.weatherAPI =
-            $resource(
-                "http://api.openweathermap.org/data/2.5/forecast/daily",
-                {
-                    callback: "JSON_CALLBACK"
-                },
-                {
-                    get: {
-                        method: "JSONP"
-                    }
-                }
-            );
-
-        // API:
-        // http://openweathermap.org/forecast
-
-        // mój klucz API:
-        // 04eae95ad58ff3d6b45089b57a134b32
-
-        // przykładowe zapytanie: http://api.openweathermap.org/data/2.5/forecast?q=Poznan&cnt=2&units=metric&appid=04eae95ad58ff3d6b45089b57a134b32
-
-        $scope.weatherResult = $scope.weatherAPI.get({
-            q: $scope.city,
-            cnt: $scope.days,
-            appid: "04eae95ad58ff3d6b45089b57a134b32",
-            units: "metric"
-        });
-
-        //console.log($scope.weatherResult);
+        $scope.weatherResult = weatherService.GetWeather($scope.city, $scope.days);
 
         $scope.convertToFahrenheit = function (degC) {
             return (32 + 9/5 * degC);
